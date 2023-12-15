@@ -1,75 +1,68 @@
-// Интерфейс для склада с одеждой
-interface ClothesWarehouse {
-    jackets: "empty" | number;
-    hats: "empty" | number;
-    socks: "empty" | number;
-    pants: "empty" | number;
+// Перечисление с названием TypesOfMedia, которое включает строчные типы video, audio
+
+// Перечисление с названием FormatsOfMedia, которое включает строчные видео-форматы: .mp4, .mov, .mkv, .flv, .webM
+
+// Описание интерфейса, в котором:
+// name - строка
+// type - один из перечисления выше
+// format = один из перечисления выше
+// subtitles - необязательное поле типа строка
+// marks - необязательное поле неизвестного типа
+
+enum TypesOfMedia {
+  Video = "video",
+  Audio = "audio",
 }
 
-// Интерфейс для склада с канцтоварами
-interface StationeryWarehouse {
-    scissors: "empty" | number;
-    paper: "empty" | boolean;
+enum FormatsOfMedia {
+  MP4 = ".mp4",
+  MOV = ".mov",
+  MKV = ".mkv",
+  FLV = ".flv",
+  WEBM = ".webM",
 }
 
-// Интерфейс для склада с бытовой техникой
-interface AppliancesWarehouse {
-    dishwashers: "empty" | number;
-    cookers: "empty" | number;
-    mixers: "empty" | number;
+interface typePlayMedia {
+  name: string;
+  type: TypesOfMedia;
+  format: FormatsOfMedia;
+  subtitles?: string;
+  marks?: unknown;
 }
 
+function playMedia(
+  { name, type, format, subtitles, marks }: typePlayMedia = {
+    name: "example",
+    type: TypesOfMedia.Audio,
+    format: FormatsOfMedia.MP4,
+  }
+): string {
+  let marksLog;
 
-interface TotalWarehouse
- extends ClothesWarehouse,
- StationeryWarehouse,
- AppliancesWarehouse {
-	deficit: boolean;
-	date: Date;
+  // Создать функционал, что если marks - это массив, то "сложить" все эелементы в одну строку и поместить в marksLog
+  // Если это строка, то просто поместить её в marksLog
+  // Если что-то другое - то marksLog = "Unsupported type of marks"
+  // Не допускайте any!
+
+  if (Array.isArray(marks)) {
+    marksLog = marks.join("");
+  } else if (typeof marks === "string") {
+    marksLog = marks;
+  } else {
+    marksLog = "Unsupported type of marks";
+  }
+
+  console.log(`Media ${name}${format} is ${type}
+    Marks: ${marksLog}
+    Subtitles: ${subtitles ?? "none"}`);
+  //?? - оператор нулевого слияния(если первое === null || undefined return второе)
+  return "Media started";
 }
 
-
-
-// главный объект со всеми данными, должен подходить под формат TotalWarehouse
-
-const totalData: TotalWarehouse  =  {
-	jackets: 5,
-	hats: "empty",
-	socks: "empty",
-	pants: 15,
-	scissors: 15,
-	paper: true,
-	dishwashers: 3,
-	cookers: "empty",
-	mixers: 14,
-	deficit: true,
-	date: new Date()
-};
-
-// Реализуйте функцию, которая принимает в себя главный объект totalData нужного формата
-// и возвращает всегда строку
-// Функция должна отфильтровать данные из объекта и оставить только те названия товаров, у которых значение "empty"
-// и поместить их в эту строку. Если таких товаров нет - возвращается другая строка (см ниже)
-
-// С данным объектом totalData строка будет выглядеть:
-// "We need this items: hats, socks, cookers"
-// Товары через запятую, в конце её не должно быть. Пробел после двоеточия, в конце строки его нет.
-
-function printReport(data: TotalWarehouse): string {
-	const result: string = Object.entries(data)
-		.filter((item) => item[1] === "empty")
-		.reduce((res, item) => `${res} ${item[0]}`, "")
-		.slice(2)
-		
-		if(result.length) {	
-		return  `We need this items: ${{result}}`;
-	} else {
-		return "Everything fine";
-
-	}
-	
-}
-
-console.log(printReport(totalData));
-
-
+playMedia({
+  name: "WoW",
+  type: TypesOfMedia.Audio,
+  format: FormatsOfMedia.MP4,
+  subtitles: "hmhmhm hmhmhm doh",
+  marks: ["4:30", "5:40"],
+});
