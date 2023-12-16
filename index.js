@@ -8,58 +8,66 @@
 // marks - необязательное поле неизвестного типа
 var TypesOfMedia;
 (function (TypesOfMedia) {
-  TypesOfMedia["Video"] = "video";
-  TypesOfMedia["Audio"] = "audio";
+    TypesOfMedia["Video"] = "video";
+    TypesOfMedia["Audio"] = "audio";
 })(TypesOfMedia || (TypesOfMedia = {}));
 var FormatsOfMedia;
 (function (FormatsOfMedia) {
-  FormatsOfMedia["MP4"] = ".mp4";
-  FormatsOfMedia["MOV"] = ".mov";
-  FormatsOfMedia["MKV"] = ".mkv";
-  FormatsOfMedia["FLV"] = ".flv";
-  FormatsOfMedia["WEBM"] = ".webM";
+    FormatsOfMedia["MP4"] = ".mp4";
+    FormatsOfMedia["MOV"] = ".mov";
+    FormatsOfMedia["MKV"] = ".mkv";
+    FormatsOfMedia["FLV"] = ".flv";
+    FormatsOfMedia["WEBM"] = ".webM";
 })(FormatsOfMedia || (FormatsOfMedia = {}));
 function playMedia(_a) {
-  var _b =
-      _a === void 0
-        ? {
-            name: "example",
-            type: TypesOfMedia.Audio,
-            format: FormatsOfMedia.MP4,
-          }
-        : _a,
-    name = _b.name,
-    type = _b.type,
-    format = _b.format,
-    subtitles = _b.subtitles,
-    marks = _b.marks;
-  var marksLog;
-  // Создать функционал, что если marks - это массив, то "сложить" все эелементы в одну строку и поместить в marksLog
-  // Если это строка, то просто поместить её в marksLog
-  // Если что-то другое - то marksLog = "Unsupported type of marks"
-  // Не допускайте any!
-  if (Array.isArray(marks)) {
-    marksLog = marks.join("");
-  } else if (typeof marks === "string") {
-    marksLog = marks;
-  } else {
-    marksLog = "Unsupported type of marks";
-  }
-  console.log(
-    "Media "
-      .concat(name)
-      .concat(format, " is ")
-      .concat(type, "\n    Marks: ")
-      .concat(marksLog, "\n    Subtitles: ")
-      .concat(subtitles !== null && subtitles !== void 0 ? subtitles : "none")
-  );
-  //?? - оператор нулевого слияния(если первое === null || undefined return второе)
-  return "Media started";
+    var _b = _a === void 0 ? {
+        name: "example",
+        type: TypesOfMedia.Audio,
+        format: FormatsOfMedia.MP4,
+    } : _a, name = _b.name, type = _b.type, format = _b.format, subtitles = _b.subtitles, marks = _b.marks;
+    var marksLog;
+    // Создать функционал, что если marks - это массив, то "сложить" все эелементы в одну строку и поместить в marksLog
+    // Если это строка, то просто поместить её в marksLog
+    // Если что-то другое - то marksLog = "Unsupported type of marks"
+    // Не допускайте any!
+    if (Array.isArray(marks)) {
+        marksLog = marks.join("");
+    }
+    else if (typeof marks === "string") {
+        marksLog = marks;
+    }
+    else {
+        marksLog = "Unsupported type of marks";
+    }
+    console.log("Media ".concat(name).concat(format, " is ").concat(type, "\n    Marks: ").concat(marksLog, "\n    Subtitles: ").concat(subtitles !== null && subtitles !== void 0 ? subtitles : "none"));
+    //?? - оператор нулевого слияния(если первое === null || undefined return второе)
+    return "Media started";
 }
 playMedia({
-  name: "WoW",
-  type: TypesOfMedia.Audio,
-  format: FormatsOfMedia.MP4,
-  subtitles: "hmhmhm hmhmhm doh",
-  marks: ["4:30", "5:40"],
+    name: "WoW",
+    type: TypesOfMedia.Audio,
+    format: FormatsOfMedia.MP4,
+    subtitles: "hmhmhm hmhmhm doh",
+    marks: ["4:30", "5:40"],
 });
+var AnimalStatus;
+(function (AnimalStatus) {
+    AnimalStatus["Available"] = "available";
+    AnimalStatus["NotAvaialble"] = "not available";
+})(AnimalStatus || (AnimalStatus = {}));
+function isAvailable(res) {
+    if (res.status === AnimalStatus.Available) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+function checkAnimalData(animal) {
+    if (isAvailable(animal)) {
+        return animal.data;
+    }
+    else {
+        return "".concat(animal.data, ", you can try in ").concat(animal.data.nextUpdateIn);
+    }
+}
