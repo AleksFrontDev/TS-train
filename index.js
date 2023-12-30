@@ -1,4 +1,15 @@
 // Перечисление с названием TypesOfMedia, которое включает строчные типы video, audio
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 // Перечисление с названием FormatsOfMedia, которое включает строчные видео-форматы: .mp4, .mov, .mkv, .flv, .webM
 // Описание интерфейса, в котором:
 // name - строка
@@ -162,3 +173,139 @@ var data = [
     },
 ];
 console.log(calculateAmountOfFigures(data));
+// Типизировать объект phones
+var phones = [
+    {
+        company: "Nokia",
+        number: 1285637,
+        size: "5.5",
+        companyPartner: "MobileNokia",
+        manufactured: new Date("2022-09-01"),
+    },
+    {
+        company: "Samsung",
+        number: 4356637,
+        size: "5.0",
+        companyPartner: "SamMobile",
+        manufactured: new Date("2021-11-05"),
+    },
+    {
+        company: "Apple",
+        number: 4552833,
+        size: "5.7",
+        companyPartner: "no data",
+        manufactured: new Date("2022-05-24T12:00:00"),
+    },
+];
+// Функция должна отфильтровать массив данных и вернуть новый массив
+// с телефонами, выпущенными после даты в третьем аргументе
+function filterPhonesByDate(phones, key, initial) {
+    return phones
+        .filter(function (phone) {
+        var manufact = phone[key];
+        if (manufact instanceof Date &&
+            manufact.getTime() > new Date(initial).getTime()) {
+            return phone;
+        }
+    })
+        .map(function (phone) {
+        var newObj = __assign(__assign({}, phone), { initialDate: initial });
+        return newObj;
+    });
+}
+// Второй аргумент при вызове функции должен быть связан с первым,
+// а значит мы получим подсказки - свойства этого объекта
+console.log(filterPhonesByDate(phones, "manufactured", "2022-01-01"));
+var fitnessClubCenter = {
+    clubName: "Fitness club Center",
+    location: "central ave. 45, 5th floor",
+    classes: [
+        {
+            name: "yoga",
+            startsAt: "8:00 AM",
+            duration: 60,
+        },
+        {
+            name: "trx",
+            startsAt: "11:00 AM",
+            duration: 45,
+        },
+        {
+            name: "swimming",
+            startsAt: "3:00 PM",
+            duration: 70,
+        },
+    ],
+    futureClasses: [
+        {
+            name: "boxing",
+            willStartsAt: "6:00 PM",
+            duration: 40,
+        },
+        {
+            name: "breath training",
+            willStartsAt: "8:00 PM",
+            duration: 30,
+        },
+    ],
+    currClients: [
+        {
+            name: "John Smith",
+            age: "-",
+            gender: "male",
+            timeLeft: "1 month",
+        },
+        {
+            name: "Alise Smith",
+            age: 35,
+            gender: "female",
+            timeLeft: "3 month",
+        },
+        {
+            name: "Ann Sonne",
+            age: 24,
+            gender: "female",
+            timeLeft: "5 month",
+        },
+    ],
+    exClients: [
+        {
+            name: "Tom Smooth",
+            age: 50,
+            gender: "male",
+            makeCallFor: new Date("2023-08-12"),
+        },
+    ],
+    futureClients: [
+        {
+            name: "Maria",
+            makeCallFor: new Date("2023-07-10"),
+        },
+    ],
+};
+function createSlider(_a) {
+    var _b = _a === void 0 ? {} : _a, _c = _b.container, container = _c === void 0 ? "" : _c, _d = _b.numberOfSlides, numberOfSlides = _d === void 0 ? 1 : _d, _e = _b.speed, speed = _e === void 0 ? 300 : _e, _f = _b.direction, direction = _f === void 0 ? "horizontal" : _f, _g = _b.dots, dots = _g === void 0 ? true : _g, _h = _b.arrows, arrows = _h === void 0 ? true : _h;
+    console.log(container, numberOfSlides, speed, direction, dots, arrows);
+}
+createSlider();
+// type Ifinally = IcustomSliderOptions && IchangeSpeed
+var customSliderOptions = {
+    container: "id",
+    numberOfSlides: 4,
+    speed: 1100,
+    direction: "horizontal",
+    dots: true,
+    arrows: true,
+};
+function createCustomSlider(options) {
+    if ("container" in options) {
+        console.log(options);
+    }
+}
+// Необходимо типизировать объект валидации
+// Учтите, что данные в форме могут расширяться и эти поля
+// должны появиться и в объекте валидации
+var validationData = {
+    login: { isValid: false, errorMsg: "At least 3 characters" },
+    password: { isValid: true },
+};
