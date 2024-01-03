@@ -558,3 +558,5 @@ const validationData: Validate<IForm> = {
 type Validate<T> = {
   [P in keyof T]: { isValid: false; errorMsg: string } | { isValid: true };
 };
+
+
