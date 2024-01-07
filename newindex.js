@@ -1,3 +1,4 @@
+"use strict";
 // enum TransferStatus {
 //   Pending = "pending",
 //   Rejected = "rejected",

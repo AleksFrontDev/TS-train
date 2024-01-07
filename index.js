@@ -1,5 +1,16 @@
 "use strict";
 // Перечисление с названием TypesOfMedia, которое включает строчные типы video, audio
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 // Перечисление с названием FormatsOfMedia, которое включает строчные видео-форматы: .mp4, .mov, .mkv, .flv, .webM
 // Описание интерфейса, в котором:
 // name - строка
@@ -20,12 +31,13 @@ var FormatsOfMedia;
     FormatsOfMedia["FLV"] = ".flv";
     FormatsOfMedia["WEBM"] = ".webM";
 })(FormatsOfMedia || (FormatsOfMedia = {}));
-function playMedia({ name, type, format, subtitles, marks } = {
-    name: "example",
-    type: TypesOfMedia.Audio,
-    format: FormatsOfMedia.MP4,
-}) {
-    let marksLog;
+function playMedia(_a) {
+    var _b = _a === void 0 ? {
+        name: "example",
+        type: TypesOfMedia.Audio,
+        format: FormatsOfMedia.MP4,
+    } : _a, name = _b.name, type = _b.type, format = _b.format, subtitles = _b.subtitles, marks = _b.marks;
+    var marksLog;
     // Создать функционал, что если marks - это массив, то "сложить" все эелементы в одну строку и поместить в marksLog
     // Если это строка, то просто поместить её в marksLog
     // Если что-то другое - то marksLog = "Unsupported type of marks"
@@ -39,9 +51,7 @@ function playMedia({ name, type, format, subtitles, marks } = {
     else {
         marksLog = "Unsupported type of marks";
     }
-    console.log(`Media ${name}${format} is ${type}
-    Marks: ${marksLog}
-    Subtitles: ${subtitles ?? "none"}`);
+    console.log("Media ".concat(name).concat(format, " is ").concat(type, "\n    Marks: ").concat(marksLog, "\n    Subtitles: ").concat(subtitles !== null && subtitles !== void 0 ? subtitles : "none"));
     //?? - оператор нулевого слияния(если первое === null || undefined return второе)
     return "Media started";
 }
@@ -70,20 +80,20 @@ function checkAnimalData(animal) {
         return animal.data;
     }
     else {
-        return `${animal.data}, you can try in ${animal.data.nextUpdateIn}`;
+        return "".concat(animal.data, ", you can try in ").concat(animal.data.nextUpdateIn);
     }
 }
-const player1 = {
+var player1 = {
     game: "CS:GO",
     hours: 300,
     server: "basic",
 };
-const player2 = {
+var player2 = {
     game: 2048,
     hours: "300 h.",
     server: "arcade",
 };
-const player3 = {
+var player3 = {
     game: "Chess",
     hours: {
         total: 500,
@@ -107,13 +117,13 @@ var FigureNames;
     FigureNames["Line"] = "line";
 })(FigureNames || (FigureNames = {}));
 function calculateAmountOfFigures(figure) {
-    const amount = {
+    var amount = {
         squares: 0,
         circles: 0,
         triangles: 0,
         others: 0,
     };
-    figure.forEach((fig) => {
+    figure.forEach(function (fig) {
         switch (fig.name) {
             case FigureNames.Rect:
                 amount.squares++;
@@ -130,7 +140,7 @@ function calculateAmountOfFigures(figure) {
     });
     return amount;
 }
-const data = [
+var data = [
     {
         name: FigureNames.Rect,
         data: { a: 5, b: 10 },
@@ -165,7 +175,7 @@ const data = [
 ];
 console.log(calculateAmountOfFigures(data));
 // Типизировать объект phones
-const phones = [
+var phones = [
     {
         company: "Nokia",
         number: 1285637,
@@ -192,22 +202,22 @@ const phones = [
 // с телефонами, выпущенными после даты в третьем аргументе
 function filterPhonesByDate(phones, key, initial) {
     return phones
-        .filter((phone) => {
-        const manufact = phone[key];
+        .filter(function (phone) {
+        var manufact = phone[key];
         if (manufact instanceof Date &&
             manufact.getTime() > new Date(initial).getTime()) {
             return phone;
         }
     })
-        .map((phone) => {
-        const newObj = { ...phone, initialDate: initial };
+        .map(function (phone) {
+        var newObj = __assign(__assign({}, phone), { initialDate: initial });
         return newObj;
     });
 }
 // Второй аргумент при вызове функции должен быть связан с первым,
 // а значит мы получим подсказки - свойства этого объекта
 console.log(filterPhonesByDate(phones, "manufactured", "2022-01-01"));
-const fitnessClubCenter = {
+var fitnessClubCenter = {
     clubName: "Fitness club Center",
     location: "central ave. 45, 5th floor",
     classes: [
@@ -274,12 +284,13 @@ const fitnessClubCenter = {
         },
     ],
 };
-function createSlider({ container = "", numberOfSlides = 1, speed = 300, direction = "horizontal", dots = true, arrows = true, } = {}) {
+function createSlider(_a) {
+    var _b = _a === void 0 ? {} : _a, _c = _b.container, container = _c === void 0 ? "" : _c, _d = _b.numberOfSlides, numberOfSlides = _d === void 0 ? 1 : _d, _e = _b.speed, speed = _e === void 0 ? 300 : _e, _f = _b.direction, direction = _f === void 0 ? "horizontal" : _f, _g = _b.dots, dots = _g === void 0 ? true : _g, _h = _b.arrows, arrows = _h === void 0 ? true : _h;
     console.log(container, numberOfSlides, speed, direction, dots, arrows);
 }
 createSlider();
 // type Ifinally = IcustomSliderOptions && IchangeSpeed
-const customSliderOptions = {
+var customSliderOptions = {
     container: "id",
     numberOfSlides: 4,
     speed: 1100,
@@ -295,7 +306,7 @@ function createCustomSlider(options) {
 // Необходимо типизировать объект валидации
 // Учтите, что данные в форме могут расширяться и эти поля
 // должны появиться и в объекте валидации
-const validationData = {
+var validationData = {
     login: { isValid: false, errorMsg: "At least 3 characters" },
     password: { isValid: true },
 };
