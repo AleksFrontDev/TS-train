@@ -13,13 +13,18 @@ class myCar implements ICar {
     console.log(this.fuel);
     return this.open ? "open" : "close";
   }
+  isNumber() {
+    return this.freeSeats === 4 ? "default" : "changed";
+  }
 }
 
 function closeCar<T extends { new (...args: any[]): {} }>(constructor: T) {
   return class extends constructor {
     open: boolean = false;
+    freeSeats: number = 10;
   };
 }
 
 const car = new myCar();
 console.log(car.isOpen());
+console.log(car.isNumber());
