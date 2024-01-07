@@ -5,12 +5,12 @@ interface ICar {
 }
 
 @changeDoorStatus(false)
+@changeFreeSeats(300)
 class myCar implements ICar {
   fuel: string = "50%";
   open: boolean = true;
   freeSeats: number = 4;
   isOpen() {
-    console.log(this.fuel);
     return this.open ? "open" : "close";
   }
   //   isNumber() {
@@ -26,6 +26,13 @@ function changeDoorStatus(status: boolean) {
   };
 }
 
+function changeFreeSeats(amount: number) {
+  return <T extends { new (...args: any[]): {} }>(constructor: T) => {
+    return class extends constructor {
+      freeSeats: number = amount;
+    };
+  };
+}
 // function closeCar<T extends { new (...args: any[]): {} }>(constructor: T) {
 //   return class extends constructor {
 //     open: boolean = false;
@@ -34,5 +41,6 @@ function changeDoorStatus(status: boolean) {
 // }
 
 const car = new myCar();
-console.log(car.isOpen());
+console.log(car.open);
+console.log(car.freeSeats);
 // console.log(car.isNumber());
